@@ -28,6 +28,7 @@ function displayWorks(works) {
 }
 displayWorks(worksArray);
 
+
 //declaration d'un tableau vide pour acceuillir les catégories
 let categoriesArray = [];
 
@@ -39,6 +40,8 @@ categoriesArray = await reponse.json();
 categoriesArray.unshift({ id: 0, name: "Tous" });
 
 let worksFilters_container = document.querySelector(".worksFilters_container");
+
+
 
 function createFilterBtn(categories) {
   //on vide le html du container des filtres

@@ -12,21 +12,42 @@ formLogin.addEventListener("submit",async function (event) {
     console.log(loginPayload);
 
     let userArray = [];
+    try {
         const loginUser = await fetch(postLoginUrl, {
-        method : 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body : loginPayload     
-});
-    userArray = await loginUser.json();
-    console.log(userArray);
-    let userToken = userArray.token;
-    console.log(userToken);
-    localStorage.setItem("token",userToken);
+            method : 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body : loginPayload     
+        });
+        if (loginUser.ok) {
+            userArray = await loginUser.json();
+            console.log(userArray);
+            let userToken = userArray.token;
+            console.log(userToken);
+            localStorage.setItem("token",userToken);
+            window.location.href = 'index_edition.html';
+        } else { 
+            window.alert("Erreur dans l'identifiant ou le mot de passe"); 
+        }
+    } catch (error) {
+        console.log(error);
+        window.alert(error);   
+    }
 });
 
 
 let token = localStorage.getItem("token");
 console.log(localStorage.token);
+
+
+    
+        
+    
+
+    
+    
+
+    
+

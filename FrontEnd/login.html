@@ -27,13 +27,13 @@
 <main id="main_login">
     <section id="loginForm-container">
         <h2>Log in</h2>
-        <form id="loginForm" method="post" action="">
+        <form id="loginForm" method="post" action="#">
             
             <label for="email" class="loginForm-label" >E-mail</label>
-            <input type="email" name="email" id="loginEmail" required>
+            <input type="email" name="email" id="loginEmail" autocomplete="email" required>
 
             <label for="password" class="loginForm-label" >Mot de passe</label>
-            <input type="password" name="password" id="password" required>
+            <input type="password" name="password" id="password" autocomplete="current-password" required>
 
             <input type="submit" id="submit" value="Se connecter">
 

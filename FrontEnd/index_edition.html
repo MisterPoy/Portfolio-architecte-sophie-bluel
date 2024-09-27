@@ -14,7 +14,53 @@
 
     <script type="module" src="./assets/mainscript.js" defer></script>
   </head>
-  <body>
+  <body class="modale_open">
+    <div class="modale_main-container modale_container-hide" id="modaleContainer">
+      <aside class="modale">
+        <div class="x-mark-modale_container">
+          <i class="fa-solid fa-xmark" id="xmark-modale"></i>
+        </div>
+        <h3>Galerie photo</h3>
+        <div class="modale_gallery">
+          <figure>
+            <img src="assets/images/abajour-tahina.png" alt="Abajour Tahina">
+          </figure>
+          <figure>
+            <img src="assets/images/appartement-paris-v.png" alt="Appartement Paris V">
+          </figure>
+          <figure>
+            <img src="assets/images/restaurant-sushisen-londres.png" alt="Restaurant Sushisen - Londres">      
+          </figure>
+          <figure>
+            <img src="assets/images/la-balisiere.png" alt="Villa “La Balisiere” - Port Louis">         
+          </figure>
+          <figure>
+            <img src="assets/images/structures-thermopolis.png" alt="Structures Thermopolis">         
+          </figure>
+          <figure>
+            <img src="assets/images/appartement-paris-x.png" alt="Appartement Paris X">          
+          </figure>
+          <figure>
+            <img src="assets/images/le-coteau-cassis.png" alt="Pavillon “Le coteau” - Cassis">          
+          </figure>
+          <figure>
+            <img src="assets/images/villa-ferneze.png" alt="Villa Ferneze - Isola d’Elba">          
+          </figure>
+          <figure>
+            <img src="assets/images/appartement-paris-xviii.png" alt="Appartement Paris XVIII">          
+          </figure>
+          <figure>
+            <img src="assets/images/bar-lullaby-paris.png" alt="Bar “Lullaby” - Paris">          
+          </figure>
+          <figure>
+            <img src="assets/images/hotel-first-arte-new-delhi.png" alt="Hotel First Arte - New Delhi">          
+          </figure>
+        </div>
+        <div class="ajout-photo_box">
+          <input type="submit" id="submit" value="Ajouter une photo" class="ajouter-photo">
+        </div>
+      </aside>
+    </div>
     <div class="edit_headband">
       <i class="fa-regular fa-pen-to-square"></i>
       <span>Mode édition</span>
@@ -29,7 +75,7 @@
           <a href="#contact">
             <li>contact</li>
           </a>	
-          <a href="login.html">
+          <a href="index.html">
             <li>logout</li>
           </a>
           <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
@@ -51,7 +97,7 @@
       <section id="portfolio">
         <div id="title_container">
           <h2>Mes Projets</h2>
-          <button class="title_edit">
+          <button class="modify_button">
             <i class="fa-regular fa-pen-to-square"></i>
             <span>modifier</span>
           </button>

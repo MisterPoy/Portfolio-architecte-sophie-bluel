@@ -30,7 +30,7 @@ function displayWorks(works) {
 displayWorks(worksArray);
 
 
-
+//         CREATION DES FILTRES PAR CATEGORIES
 //declaration d'un tableau vide pour acceuillir les catégories
 let categoriesArray = [];
 
@@ -44,7 +44,7 @@ categoriesArray.unshift({ id: 0, name: "Tous" });
 let worksFiltersContainer = document.querySelector(".worksFilters_container");
 
 //FONCTION DE CREATION DES FILTRES
-function createFilterBtn(categories) {
+function createFilterBtn(categories) { 
   //on vide le html du container des filtres
   worksFiltersContainer.innerHTML = "";
   //boucle pour créer un élément html <button> pour chaque élément de categoriesArray, enfant du container principal et ayant un text qui correspond
@@ -68,8 +68,11 @@ function createFilterBtn(categories) {
       filterWorksByCategories(categoryId);
     });
   }
+}   
+if (window.location.pathname.endsWith("index.html")){
+  createFilterBtn(categoriesArray);
 }
-/* createFilterBtn(categoriesArray);  */
+/* createFilterBtn(categoriesArray); */
 
 
 const token = localStorage.getItem('token');
@@ -89,31 +92,40 @@ function filterWorksByCategories(categoryId) {
 }
 
 
-
-//TEST DE CODE POUR FERMER LA MODALEAVEC LA CROIX
-function closeModaleWithXmark (){
-  let xmark = document.querySelector('.fa-xmark');
-  console.log(xmark);
-  let modale = document.getElementById('modaleContainer');
-  console.log(modale);
-
-  xmark.addEventListener("click", function() {
-    modaleWindows.id = 'modaleContainer'
-  })
-}
-
-/* closeModaleWithXmark(); */
-
+// VARIABLE ET FONCTION POUR OUVRIR LA MODALE
 const launchModalButton = document.querySelector('.modify_button');
 console.log(launchModalButton);
 const modaleWindows = document.querySelector('.modale_main-container');
 console.log(modaleWindows);
 const modale = document.querySelector('.modale');
 console.log(modale);
-launchModalButton.addEventListener('click', function(){
-  modaleWindows.id = '';
-  console.log("Hello there !")
-});
+
+if (window.location.pathname.endsWith("edition.html")){ 
+  launchModalButton.addEventListener('click', function(){
+    modaleWindows.id = '';
+    console.log("Hello there !")
+  });
+}
+
+
+
+//TEST DE CODE POUR FERMER LA MODALEAVEC LA CROIX
+function closeModaleWithXmark (){
+  let xmark = document.querySelector('.fa-xmark');
+  console.log(xmark);
+
+
+  xmark.addEventListener("click", function() {
+    modaleWindows.id = 'modaleContainer'
+  })
+}
+if (window.location.pathname.endsWith("edition.html")){
+  closeModaleWithXmark();
+}
+
+
+
+
 
 /* curl -X 'POST' \
   'http://localhost:5678/api/users/login' \

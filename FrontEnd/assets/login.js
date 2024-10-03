@@ -10,7 +10,8 @@ let balisePassword = document.getElementById("password");
 //stockage de l'url de la demande de login API
 let postLoginUrl = 'http://localhost:5678/api/users/login';
 
-    // écouteur d'évènements sur ll'évènement "submit" du formulaire
+
+// écouteur d'évènements sur ll'évènement "submit" du formulaire
 formLogin.addEventListener("submit", async function (event) {
     // on coupe le comportement par défaut du nav pour qu'il ne recharge pas la page
     event.preventDefault();
@@ -21,8 +22,8 @@ formLogin.addEventListener("submit", async function (event) {
     let loginPayload = JSON.stringify({ email, password });
     console.log(loginPayload);
 
-    
     try {
+        
         const loginUser = await fetch(postLoginUrl, {
             method : 'POST',
             headers: {
@@ -31,7 +32,9 @@ formLogin.addEventListener("submit", async function (event) {
             },
             body : loginPayload     
         });
+
         console.log(loginUser);
+
         if (loginUser.ok) {
             let userArray = await loginUser.json();
             console.log(userArray);
@@ -59,6 +62,6 @@ formLogin.addEventListener("submit", async function (event) {
 
 let token = localStorage.getItem("token");
 console.log(localStorage.token);
-
+;
     
 

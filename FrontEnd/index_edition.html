@@ -16,6 +16,7 @@
   </head>
   <body class="modale_open">
     <div class="modale_main-container modale_container-hide" id="modaleContainer">
+
       <aside class="modale">
         <div class="x-mark-modale_container">
           <i class="fa-solid fa-xmark" id="xmark-modale"></i>
@@ -24,47 +25,81 @@
         <div class="modale_gallery">
           <figure>
             <img src="assets/images/abajour-tahina.png" alt="Abajour Tahina">
+            <span class="delete-work_btn"><i class="fa-regular fa-trash-can"></i></span>
           </figure>
           <figure>
             <img src="assets/images/appartement-paris-v.png" alt="Appartement Paris V">
+            <span class="delete-work_btn"><i class="fa-regular fa-trash-can"></i></span>
           </figure>
           <figure>
-            <img src="assets/images/restaurant-sushisen-londres.png" alt="Restaurant Sushisen - Londres">      
+            <img src="assets/images/restaurant-sushisen-londres.png" alt="Restaurant Sushisen - Londres">
+            <span class="delete-work_btn"><i class="fa-regular fa-trash-can"></i></span>      
           </figure>
           <figure>
-            <img src="assets/images/la-balisiere.png" alt="Villa “La Balisiere” - Port Louis">         
+            <img src="assets/images/la-balisiere.png" alt="Villa “La Balisiere” - Port Louis">
+            <span class="delete-work_btn"><i class="fa-regular fa-trash-can"></i></span>         
           </figure>
           <figure>
-            <img src="assets/images/structures-thermopolis.png" alt="Structures Thermopolis">         
+            <img src="assets/images/structures-thermopolis.png" alt="Structures Thermopolis">
+            <span class="delete-work_btn"><i class="fa-regular fa-trash-can"></i></span>         
           </figure>
           <figure>
-            <img src="assets/images/appartement-paris-x.png" alt="Appartement Paris X">          
+            <img src="assets/images/appartement-paris-x.png" alt="Appartement Paris X">
+            <span class="delete-work_btn"><i class="fa-regular fa-trash-can"></i></span>          
           </figure>
           <figure>
-            <img src="assets/images/le-coteau-cassis.png" alt="Pavillon “Le coteau” - Cassis">          
+            <img src="assets/images/le-coteau-cassis.png" alt="Pavillon “Le coteau” - Cassis">
+            <span class="delete-work_btn"><i class="fa-regular fa-trash-can"></i></span>          
           </figure>
           <figure>
-            <img src="assets/images/villa-ferneze.png" alt="Villa Ferneze - Isola d’Elba">          
+            <img src="assets/images/villa-ferneze.png" alt="Villa Ferneze - Isola d’Elba">
+            <span class="delete-work_btn"><i class="fa-regular fa-trash-can"></i></span>          
           </figure>
           <figure>
-            <img src="assets/images/appartement-paris-xviii.png" alt="Appartement Paris XVIII">          
+            <img src="assets/images/appartement-paris-xviii.png" alt="Appartement Paris XVIII">
+            <span class="delete-work_btn"><i class="fa-regular fa-trash-can"></i></span>          
           </figure>
           <figure>
-            <img src="assets/images/bar-lullaby-paris.png" alt="Bar “Lullaby” - Paris">          
+            <img src="assets/images/bar-lullaby-paris.png" alt="Bar “Lullaby” - Paris">
+            <span class="delete-work_btn"><i class="fa-regular fa-trash-can"></i></span>          
           </figure>
           <figure>
-            <img src="assets/images/hotel-first-arte-new-delhi.png" alt="Hotel First Arte - New Delhi">          
+            <img src="assets/images/hotel-first-arte-new-delhi.png" alt="Hotel First Arte - New Delhi">
+            <span class="delete-work_btn"><i class="fa-regular fa-trash-can"></i></span>          
           </figure>
         </div>
         <div class="ajout-photo_box">
           <input type="submit" id="submit" value="Ajouter une photo" class="ajouter-photo">
         </div>
       </aside>
+
+      <aside class="modaleAddWork">
+        <div class="x-mark-modale_container">
+          <i class="fa-solid fa-xmark" id="xmark-modale"></i>
+        </div>
+        <div class="arrow-goback_container">
+          <i class="fa-solid fa-arrow-left" id=""></i>
+        </div>
+        <form action="#" method="#" id="postWorkForm">
+          <h3>Ajout photo</h3>
+          <input type="file" class="addFile">
+          <input type="text">
+         <select >
+
+         </select>
+          <div class="validateAddWorks_box">
+            <input type="submit" id="submit" value="Valider" class="ajouter-photo">
+          </div>
+        </form>
+      </aside>
+
     </div>
+
     <div class="edit_headband">
       <i class="fa-regular fa-pen-to-square"></i>
       <span>Mode édition</span>
     </div>
+
     <header>
         <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
       <nav>
@@ -75,7 +110,7 @@
           <a href="#contact">
             <li>contact</li>
           </a>	
-          <a href="index.html">
+          <a href="index.html" class="logOut">
             <li>logout</li>
           </a>
           <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>

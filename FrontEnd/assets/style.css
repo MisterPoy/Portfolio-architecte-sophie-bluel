@@ -144,12 +144,13 @@ li:hover {
 }
 
 /* MODALE */
+
 #modaleContainer {
-	display: none;
+	
 }
 
 .modale_main-container {
-	display: flex;
+	display: none;
 	position: fixed;
 	height:100vh;
 	width: 100vw;
@@ -175,10 +176,38 @@ li:hover {
 	background-color: #ffffff;
 	border-radius: 10px;
 	z-index: 999;
+	
 	/* overflow-y: auto; */
 }
 
-.modale h3 {
+.modaleAddWork {
+	display: none;
+	flex-direction: column;
+	justify-content: space-between;
+	position: relative;
+	height: 60vh;
+	min-height: 700px;
+	max-height: 950px;
+	/* gap: 20px; */
+	padding: 0em 7em;
+	background-color: #ffffff;
+	border-radius: 10px;
+	z-index: 1000;
+	
+	/* overflow-y: auto; */
+}
+
+.modale h3,
+.modaleAddWork label {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 2em 0 2em 0;
+	height: 4em;
+	vertical-align: middle;
+	text-align: center;
+}
+/* .modaleAddWork h3 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -186,7 +215,7 @@ li:hover {
 	height: 4em;
 	vertical-align: middle;
 	text-align: center;
-}
+} */
 
 .x-mark-modale_container {
 	display: flex;
@@ -198,11 +227,22 @@ li:hover {
 	z-index: 15000;
 }
 
-.fa-xmark {
+.fa-xmark,
+.fa-arrow-left {
 
 	/* align-self: flex-end; */
 	font-size: 24px;
 	cursor: pointer;
+}
+
+.arrow-goback_container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 30px;
+	left: 30px;
+	z-index: 15000;
 }
 
 .modale_gallery {
@@ -229,7 +269,7 @@ li:hover {
 .modale_gallery figure {
 	position: relative;
 }
-.modale_gallery figure::after {
+/* .modale_gallery figure::after {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -246,6 +286,26 @@ li:hover {
 	top: 6px;
 	right: 6px;
 	cursor: pointer;
+} */
+
+.delete-work_btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 6px;
+	right: 6px;
+	height: 17px;
+	width: 17px;
+	cursor: pointer;
+	background-color: black;
+	border-radius: 5px;
+}
+
+.delete-work_btn .fa-trash-can {
+	font-size: 0.8em;
+	color: white;
+	font-weight: 600;
 }
 
 .modale_gallery img {
@@ -253,19 +313,23 @@ li:hover {
 	height: 105px;
 }
 
-.ajout-photo_box {
+.ajout-photo_box,
+.validateAddWorks_box {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	position: relative;
 	height: 8em;
+	margin-top: 2em;
 }
 
-.ajout-photo_box input[type="submit"] {
+.ajout-photo_box input[type="submit"],
+.validateAddWorks_box input[type="submit"]  {
 	margin: 0;
 }
 
-.ajout-photo_box::after {
+.ajout-photo_box::after,
+.validateAddWorks_box::after {
 	content: "";
 	width: 100%;
 	height: 1px;
@@ -273,8 +337,6 @@ li:hover {
 	position: absolute;
 	top: 0;
 }
-
-
 
 #introduction {
 	display: flex;
@@ -406,6 +468,19 @@ input[type="submit"]{
 	text-align: center;
 	border-radius: 60px ;
 	cursor: pointer;
+}
+.validateAddWorks_box input {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #A7A7A7;
+	border-style: none;
+	padding: 0.3em;
+}
+
+#postWorkForm {
+	display: flex;
+	flex-direction: column;
 }
 
 /******** FOOTER ************/

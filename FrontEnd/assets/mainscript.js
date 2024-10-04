@@ -9,6 +9,8 @@ console.log(worksArray);
 
 let gallery = document.querySelector(".gallery");
 
+
+
 function displayWorks(works) {
   // erase html gallery
   gallery.innerHTML = "";
@@ -28,6 +30,71 @@ function displayWorks(works) {
   }
 }
 displayWorks(worksArray);
+
+
+///// CODE DE GESTION DE LA MODALE
+
+// DECLARATION MODALE GALLERY
+let modaleGallery = document.querySelector(".modale_gallery");
+console.log(modaleGallery);
+
+
+// FONCTION AFFICHANT LES PROJETS
+function displayWorksModale (works) {
+  modaleGallery.innerHTML = "";
+
+  for (let i = 0; i < works.length; i++) {
+    const work = works[i];
+
+    const worksFiles = document.createElement("figure");
+    const worksImg = document.createElement("img");
+    worksImg.src = work.imageUrl;
+    worksImg.alt = work.title;
+    worksFiles.appendChild(worksImg);
+    const deleteWorkBtn = document.createElement("span");
+    deleteWorkBtn.classList.add("delete-work_btn");
+    deleteWorkBtn.innerHTML = ('<i class="fa-regular fa-trash-can"></i>');
+    worksFiles.appendChild(deleteWorkBtn);
+    modaleGallery.appendChild(worksFiles);
+    // AJOUT D'EVENTS LISTENENR SUR LE CLICK DES BOUTONS DE SUPPRESSION DE PROJET
+    deleteWorkBtn.addEventListener('click', async ()=> {
+      // ON RECUPERE LE TOKEN
+      const token = localStorage.getItem("token");
+      console.log(token);
+      // ON DEFINIT LE WORK ID 
+      const workId = work.id;
+
+  //  GESTION DE LA REQUETE DE SUPPRESSION AU CLICK ET RECHARGEMENT DE LA GALLERY
+      // REQUETE DELETE
+      try {
+        const response = await fetch(`http://localhost:5678/api/works/${workId}`, {
+          method: 'DELETE',
+          headers :{
+            Authorization: `Bearer ${token}`
+          }
+        });
+        if (response.ok) { //SI LA REPONSE EST OK
+          // ON SUPPRIME LE PROJET SELECTION workId
+          worksArray = worksArray.filter(work => work.id !== workId);
+          displayWorksModale(worksArray);
+        } else { // GESTION DE L'ERREUR
+            console.error('Erreur lors de la suppression du projet');  
+        }
+      } catch (error){
+        console.error(error);
+      }
+
+      console.log("Essaie click bouton suppression réussit");
+      console.log(worksArray[i]);
+    });
+  }
+}
+
+// DECLARATION DES BOUTONS DE SUPPRESSION DE PROJET DE LA MODALE
+let deleteWorkBtn = document.querySelectorAll('.delete-work_btn');
+console.log(deleteWorkBtn);
+
+
 
 
 //         CREATION DES FILTRES PAR CATEGORIES
@@ -92,40 +159,78 @@ function filterWorksByCategories(categoryId) {
 }
 
 
-// VARIABLE ET FONCTION POUR OUVRIR LA MODALE
+////////////// VARIABLE ET FONCTION POUR OUVRIR LA MODALE //////////////////////
 const launchModalButton = document.querySelector('.modify_button');
-console.log(launchModalButton);
+
 const modaleWindows = document.querySelector('.modale_main-container');
-console.log(modaleWindows);
+
 const modale = document.querySelector('.modale');
-console.log(modale);
+
+const xmark = document.querySelector('.fa-xmark');
+
+const modaleAddWork = document.querySelector('.modaleAddWork');
+console.log(modaleAddWork);
+
+function closeModaleWithXmark (){
+  console.log(xmark);
+  xmark.addEventListener("click", function() {
+    closeModale();
+  })
+}
 
 if (window.location.pathname.endsWith("edition.html")){ 
   launchModalButton.addEventListener('click', function(){
-    modaleWindows.id = '';
-    console.log("Hello there !")
+    modaleWindows.style.display='flex';
+    displayWorksModale(worksArray);  
+    closeModaleWithXmark();
   });
+  
+} 
+
+
+//FONCTION POUR FERMER LA MODALE
+function closeModale (){
+  modaleWindows.style.display='none';
+  
 }
 
 
+// CODE POUR FERMER LA MODALE EN CLIQUANT EN DEHORS DU CADRE DE CELLE-CI
 
-//TEST DE CODE POUR FERMER LA MODALEAVEC LA CROIX
-function closeModaleWithXmark (){
-  let xmark = document.querySelector('.fa-xmark');
-  console.log(xmark);
+modaleWindows.addEventListener('click', function (event) {
 
+  if (modaleWindows.style.display === 'flex') {
 
-  xmark.addEventListener("click", function() {
-    modaleWindows.id = 'modaleContainer'
-  })
-}
-if (window.location.pathname.endsWith("edition.html")){
-  closeModaleWithXmark();
-}
+    const isClickOnDeleteBtn = Array.from(deleteWorkBtn).some(btn => btn.contains(event.target));
 
-
+    if (!modale.contains(event.target) && !isClickOnDeleteBtn && !modaleAddWork.contains(event.target)) {
+    closeModale();
+    console.log('hello everybody');
+  }
+    }
+});
 
 
+const logOut = document.querySelector(".logOut");
+logOut.addEventListener('click', function (event) {
+  localStorage.removeItem('token');
+  console.log("hello");
+})
+
+console.log(deleteWorkBtn);
+
+console.log(worksArray);
+
+console.log(worksArray[9]);
+
+
+/* document.addEventListener('click', function (event) {
+
+  if (!modale.contains(event.target)) {
+    closeModale();
+  }
+});
+ */
 
 /* curl -X 'POST' \
   'http://localhost:5678/api/users/login' \

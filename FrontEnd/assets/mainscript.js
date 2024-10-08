@@ -166,17 +166,19 @@ const modaleWindows = document.querySelector('.modale_main-container');
 
 const modale = document.querySelector('.modale');
 
-const xmark = document.querySelector('.fa-xmark');
+const xmark = document.querySelectorAll('.fa-xmark');
+console.log(xmark);
 
 const modaleAddWork = document.querySelector('.modaleAddWork');
 console.log(modaleAddWork);
 
 function closeModaleWithXmark (){
-  console.log(xmark);
-  xmark.addEventListener("click", function() {
-    closeModale();
-  })
-}
+  xmark.forEach((xmark)=>{
+    xmark.addEventListener("click", function() {
+      closeModale();
+    });
+  }); 
+};
 
 if (window.location.pathname.endsWith("edition.html")){ 
   launchModalButton.addEventListener('click', function(){
@@ -193,6 +195,13 @@ function closeModale (){
   modaleWindows.style.display='none';
   
 }
+
+// GESTION DU LOGOUT
+const logOut = document.querySelector(".logOut");
+logOut.addEventListener('click', function (event) {
+  localStorage.removeItem('token');
+  console.log("hello");
+})
 
 
 // CODE POUR FERMER LA MODALE EN CLIQUANT EN DEHORS DU CADRE DE CELLE-CI
@@ -211,17 +220,56 @@ modaleWindows.addEventListener('click', function (event) {
 });
 
 
-const logOut = document.querySelector(".logOut");
-logOut.addEventListener('click', function (event) {
-  localStorage.removeItem('token');
-  console.log("hello");
-})
+
 
 console.log(deleteWorkBtn);
 
 console.log(worksArray);
 
 console.log(worksArray[9]);
+
+// CHANGER DE MODALE EN CLIQUANT SUR "AJOUTER PHOTO"
+
+const addPictureBtn = document.querySelector(".ajout-photo_box");
+console.log(addPictureBtn);
+addPictureBtn.addEventListener ('click', function(){
+  modale.style.display = 'none';
+  modaleAddWork.style.display = 'flex';
+});
+
+
+//////////////////// MODALE AJOUT DE PROJET
+const uploadWork = document.getElementById('uploadWork');
+console.log(uploadWork);
+const imgPreviewBox = document.querySelector('.imgPreviewBox');
+const imgBoxcontent = document.querySelector('.imgBoxContent');
+const imgPreview = document.querySelector('.imgPreview');
+console.log(imgPreview);
+
+const goBack = document.querySelector('.arrow-goback_container');
+console.log(goBack);
+// REVENIR A LA PRECEDENTE MODALE EN CLIQUANT SUR LA FLECHE DE RETOUR
+
+goBack.addEventListener('click', function(){
+  modaleAddWork.style.display = 'none';
+  modale.style.display = 'flex';
+})
+
+// POUR AFFICHER L'IMAGE DE PREVIEW APRES AVOIR CHOISIT LE FICHIER
+uploadWork.addEventListener('change', (event)=> {
+
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      imgPreview.src = e.target.result;
+      imgBoxcontent.style.display = "none";  
+      imgPreviewBox.style.display = "flex";
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
 
 
 /* document.addEventListener('click', function (event) {

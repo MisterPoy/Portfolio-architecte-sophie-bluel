@@ -126,7 +126,6 @@ text-align: center;
 .modale #submit,
 .modaleAddWork #submit {
 	height: 36px;
-	
 }
 
 p {
@@ -156,6 +155,8 @@ li:hover {
 
 .modale_main-container {
 	display: none;
+	opacity: 0;
+	transition: opacity ease-in-out 450ms;
 	position: fixed;
 	height:100vh;
 	width: 100vw;
@@ -168,10 +169,14 @@ li:hover {
 }
 #modaleAddWork {
 	display: none;
+	opacity: 0;
+	transition: opacity ease-in-out 450ms;
 	z-index: 1000;
 }
 .modale {
 	display: flex;
+	opacity: 1;
+	transition: opacity ease-in-out 450ms;
 	z-index: 999;
 }
 .modale,
@@ -299,7 +304,7 @@ li:hover {
 	box-sizing: border-box;
 	height: 100%;
 	object-fit: cover;
-	box-shadow:0px 0px 22px 1px rgba(74,74,74,0.50);
+	box-shadow:0px 0px 15px 1px rgba(74,74,74,0.25);
 }
 #uploadWork {
 	display: none;
@@ -353,10 +358,13 @@ li:hover {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: #A7A7A7;
+	/* background-color: #A7A7A7; */
 	border-style: none;
-	padding: 0.3em;
+	padding: 0.5em;
 	width: 237px;
+}
+.validateAddWorks_box input[type="submit"]:disabled {
+	background-color: #A7A7A7;
 }
 
 .ajout-photo_box::after,
@@ -443,6 +451,8 @@ li:hover {
 
 .gallery img {
 	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 /************ FORMS CONTACT AND LOGIN             ***************/
 
@@ -535,6 +545,7 @@ input[type="submit"]{
 	font-size: 14px;
 	color: white;
 	background-color: #1D6154;
+	transition: all ease-in-out 500ms;
 	margin : 2em auto ;
 	min-width: 180px;
 	padding: 0 3.5em 0 3.5em;

@@ -84,7 +84,7 @@
           <i class="fa-solid fa-arrow-left" id=""></i>
         </div>
 
-        <form action="#" method="#" id="addWorkForm">
+        <form action="#" method="#" id="addWorkForm" class="addWorkForm">
           <h3>Ajout photo</h3>
 
           <label for="uploadWork" class="addWorkImgBox">
@@ -95,29 +95,30 @@
               <i class="fa-regular fa-image svgRepo"></i>
               <div class="addImgButton">+ Ajouter photo</div>
               <p>jpg, png : 4mo max</p>
-              <input type="file" class="addFile" id="uploadWork" required>
+              <input type="file" class="addFile" id="uploadWork"
+              accept=".jpg, .jpeg, .png" value="" required>
             </div>  
           </label>
 
           <label for="addWorkTitle" class="workTitleBox">
             <span>Titre</span>
-            <input type="text" id="addWorkTitle" required>
+            <input type="text" id="addWorkTitle" value="" required>
           </label>
 
           <label for="select-categorie" class="categoriesBox">
             <span>Catégorie</span> 
             <div class="select-container">         
               <select name="select-categorie" id="select-categorie" required>
-                <option value="" disabled selected></option>
+                <!-- <option value="" disabled selected></option>                
                 <option value="Objets">Objets</option>
                 <option value="Appartements">Appartements</option>
-                <option value="Hotels & restaurants">Hotels & restaurants</option>              
-              </select>
+                <option value="Hotels & restaurants">Hotels & restaurants</option> -->             
+            </select>
             </div>
           </label>    
 
           <div class="validateAddWorks_box">
-            <input type="submit" id="submit" value="Valider" class="ajouter-photo">
+            <input type="submit" id="submitWorkBtn" value="Valider" class="ajouter-photo">
           </div>
         </form>
 
@@ -141,9 +142,9 @@
           <a href="#contact">
             <li>contact</li>
           </a>	
-          <a href="index.html" class="logOut">
+          <span class="logOut">
             <li>logout</li>
-          </a>
+          </span>
           <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
         </ul>
       </nav>

@@ -10,7 +10,15 @@ let balisePassword = document.getElementById("password");
 //stockage de l'url de la demande de login API
 let postLoginUrl = 'http://localhost:5678/api/users/login';
 
+// POUR REDIRIGER SI L'UTILISATEUR A DEJA LE TOKEN
+let userToken = localStorage.getItem("token");
+console.log(userToken);
+let currentPage = window.location.pathname;
+console.log(`Page actuelle: ${currentPage}`);
 
+if ( (userToken && currentPage.includes("login.html")) ) {
+    window.location.href = 'index_edition.html';
+}
 // écouteur d'évènements sur ll'évènement "submit" du formulaire
 formLogin.addEventListener("submit", async function (event) {
     // on coupe le comportement par défaut du nav pour qu'il ne recharge pas la page

@@ -19,7 +19,7 @@ console.log(`Page actuelle: ${currentPage}`);
 if ( (userToken && currentPage.includes("login.html")) ) {
     window.location.href = 'index_edition.html';
 }
-// écouteur d'évènements sur ll'évènement "submit" du formulaire
+// écouteur d'évènements sur l'évènement "submit" du formulaire
 formLogin.addEventListener("submit", async function (event) {
     // on coupe le comportement par défaut du nav pour qu'il ne recharge pas la page
     event.preventDefault();

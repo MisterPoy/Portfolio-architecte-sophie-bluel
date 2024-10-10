@@ -114,7 +114,7 @@ h2{
 }
 
 h3 {
-font-family: Work Sans;
+font-family: "Work" Sans;
 font-size: 26px;
 font-weight: 400;
 line-height: 30.5px;
@@ -259,11 +259,13 @@ li:hover {
 	font-size: 0.8em;
 	color: white;
 	font-weight: 600;
+	
 }
 
 .modale_gallery img {
 	width: 100%;
 	height: 105px;
+	object-fit: cover;
 }
 
 #addWorkForm {
@@ -314,6 +316,7 @@ li:hover {
 .addWorkImgBox .svgRepo {
 	color: #b9c5cc;
 	font-size: 60px;
+	object-fit: cover;
 }
 
 .addImgButton{
@@ -520,7 +523,7 @@ li:hover {
 }
 
 #postWorkForm label span {
-	font-family: Work Sans;
+	font-family: "Work" Sans;
 	font-size: 14px;
 	font-weight: 500;
 	line-height: 16.42px;

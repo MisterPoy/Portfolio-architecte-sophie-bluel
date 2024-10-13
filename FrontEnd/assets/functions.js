@@ -1,6 +1,5 @@
 
-
-
+// DISPLAY WORKS FUNCTION
 function displayWorks(works) {
   gallery.innerHTML = "";
 
@@ -19,8 +18,7 @@ function displayWorks(works) {
   }
 };
 
-
-
+//  CREATION OF FILTER BUTTONS
 function createFilterBtn(categories) { 
   //on vide le html du container des filtres
   worksFiltersContainer.innerHTML = "";
@@ -48,6 +46,7 @@ function createFilterBtn(categories) {
 };
 
 
+//  FILTER WORKS BY CATEGORIES FUNCTION
 function filterWorksByCategories(categoryId) {
   if (categoryId === 0) {
     displayWorks(worksArray);
@@ -61,6 +60,7 @@ function filterWorksByCategories(categoryId) {
 };
 
 
+//  DISPLAY WORKS MODAL FUNCTION
 function displayWorksModale (works) {
   modaleGallery.innerHTML = "";
 
@@ -112,7 +112,54 @@ function displayWorksModale (works) {
 };
 
 
+//  CLOSE MODAL FUNCTION
 function closeModale (){
   modaleWindows.style.display='none';
   
 }
+
+
+// CLOSE MODAL FUNCTION WITH DELETE BUTTON
+function closeModaleWithXmark (){
+  xmark.forEach((xmark)=>{
+    xmark.addEventListener("click", function() {
+      closeModale();
+    });
+  }); 
+};
+
+
+//  CREATE CATEGORY FILTER SELECT FUNCTION
+function createCategoriesSelect (categories) {
+  selectCategorieBox.innerHTML = "";
+
+  //  ADD DEFAULT DISABLED OPTION FOR AN EMPTY FIELD
+  let selectBtnDefault = document.createElement("option");
+  selectCategorieBox.appendChild(selectBtnDefault);
+
+  selectBtnDefault.value = "";
+  selectBtnDefault.disabled = true;
+  selectBtnDefault.selected = true;
+  //  DELETE "ALL" CATEGORY IN CATEGORIES ARRAY
+  categoriesArray.shift();
+  console.log(categoriesArray);
+  //  CREATE OPTION ELEMENT WITH CATEGORY RETURNED BY THE API
+  for (let i = 0; i < categories.length; i++) {
+    let categorie = categories[i];
+    let selectBtn = document.createElement("option");
+    selectCategorieBox.appendChild(selectBtn);
+    selectBtn.innerText = categorie.name;
+    selectBtn.value = categorie.id;
+    selectBtn.setAttribute('name', categorie.name);
+  }
+};
+
+
+// FIELD VALIDATION FUNCTION
+function areFieldsValid () {
+  return (
+    inputFile.checkValidity() &&
+    titleField.checkValidity() &&
+    checkField.checkValidity()
+  );
+};

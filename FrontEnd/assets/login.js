@@ -1,16 +1,15 @@
-
-
-
-
-// je récupère le formulaire html dans une constante formLogin pour pouvoir "écouter" lévènement submit
+//  DEFINE THE HTML FORM INTO A CONSTANT formLogin
 const formLogin = document.getElementById("loginForm-container");
-// récupération des champs de saisies email et pass word
+
+//  DEFINE EMAIL AND PASSWORD INPUT FIELDS
 let baliseEmail = document.getElementById("loginEmail");
 let balisePassword = document.getElementById("password");
-//stockage de l'url de la demande de login API
+
+//  STORE THE URL FOR THE LOGIN API REQUEST
 let postLoginUrl = 'http://localhost:5678/api/users/login';
 
-// POUR REDIRIGER SI L'UTILISATEUR A DEJA LE TOKEN
+
+// REDIRECT THE USER IF THEY ALREADY HAS TOKEN
 let userToken = localStorage.getItem("token");
 console.log(userToken);
 let currentPage = window.location.pathname;
@@ -19,19 +18,20 @@ console.log(`Page actuelle: ${currentPage}`);
 if ( (userToken && currentPage.includes("login.html")) ) {
     window.location.href = 'index_edition.html';
 }
-// écouteur d'évènements sur l'évènement "submit" du formulaire
+
+
+//  EVENT LISTENER FOR SUBMIT LOGIN
 formLogin.addEventListener("submit", async function (event) {
-    // on coupe le comportement par défaut du nav pour qu'il ne recharge pas la page
     event.preventDefault();
-    // on récupère les valeures saisi par l'utilisateur dans les champs de saisie pour la stocker
+    
+    //  STORE THE VALUES IN FORM FIELDS
     let email = baliseEmail.value;
     let password = balisePassword.value;
-    // on converti l'email et password en JSON pour la requète API en variable loginPayload
-    let loginPayload = JSON.stringify({ email, password });
+    
+    let loginPayload = JSON.stringify({ email, password });  // CONVERT VALUES TO JSON FOR API REQUEST
     console.log(loginPayload);
 
-    try {
-        
+    try {        
         const loginUser = await fetch(postLoginUrl, {
             method : 'POST',
             headers: {
@@ -39,10 +39,10 @@ formLogin.addEventListener("submit", async function (event) {
                 'Content-Type': 'application/json'
             },
             body : loginPayload     
-        });
+        });        
 
-        console.log(loginUser);
-
+        //  IF THE LOGIN INFORMATIONS ARE CORRECT, STORE THE TOKEN IN LOCAL STORAGE AND
+        //  REDIRECT THE USER ON EDITION MODE PAGE
         if (loginUser.ok) {
             let userArray = await loginUser.json();
             console.log(userArray);
@@ -50,26 +50,26 @@ formLogin.addEventListener("submit", async function (event) {
             console.log(userToken);
             localStorage.setItem("token",userToken);
             window.location.href = 'index_edition.html';
-            /* closeModaleWithXmark(); */
-        } else if (loginUser.status === 404) {
-            // Si le statut est 401, affiche un message personnalisé et empêche l'erreur par défaut
-            console.log('Erreur dans l’identifiant ou le mot de passe (401)');
-            window.alert('Erreur dans l’identifiant ou le mot de passe');
+        
+        //  ERROR HANDLING
+            //  FOR INCORRECT EMAIL AND/OR PASSWORD
         } else if (loginUser.status === 401) {
-            // Pour d'autres codes d'erreur
+            console.log(`Erreur : ${loginUser.status}`);
+            window.alert('Erreur dans l’identifiant ou le mot de passe');
+            
+        } else if (loginUser.status === 404) {            
             console.log(`Erreur : ${loginUser.status}`);
             window.alert('Erreur dans l’identifiant ou le mot de passe');
         }
+        //  FOR ALL OTHER ERRORS 
     } catch (error) {
-        // Gestion des erreurs réseaux ou autres exceptions
         console.error(error);
         window.alert('Une erreur réseau est survenue. Veuillez vérifier votre connexion.');
     }
 });
 
 
+/////     TOKEN STORED IN LOCAL STORAGE FOR USER
 let token = localStorage.getItem("token");
 console.log(localStorage.token);
-;
-    
 

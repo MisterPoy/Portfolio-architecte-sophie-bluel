@@ -4,7 +4,7 @@ export {};
 const userToken = localStorage.getItem("token");
 /* console.log(userToken); */
 
-  // CURRENT PAGE
+  //  CURRENT PAGE
 const currentPage = window.location.pathname;
 /* console.log(`Page actuelle: ${currentPage}`); */
 if (currentPage.includes("login.html")) {
@@ -23,13 +23,14 @@ if ( (userToken && currentPage.includes("login.html")) || (userToken && currentP
 ///////////////////     WORK'S GESTION     ///////////////////
 let worksArray = [];
 
-  // API REQUEST AND WORK'S GALERY CONSTRUCT
+  //  API REQUEST AND WORK'S GALERY CONSTRUCT
 const reponseWorks = await fetch("http://localhost:5678/api/works");
 worksArray = await reponseWorks.json();
 console.log(worksArray);
  
 const gallery = document.querySelector(".gallery");
-     
+
+// DISPLAY WORKS FUNCTION
 function displayWorks(works) {
   gallery.innerHTML = "";
 
@@ -50,25 +51,24 @@ function displayWorks(works) {
 displayWorks(worksArray);
 
 
-///////////////////     CREATION DES FILTRES PAR CATEGORIES
+///////////////////     CREATION OF FILTERS BY CATEGORIES     ///////////////////
 
 let categoriesArray = [];
 
-// on récupère les données de l'api pour les catégorie, convertis en Tableau dans la constante categoriesArray
+  //  API REQUEST FOR CATEGORIES
 const reponse = await fetch("http://localhost:5678/api/categories");
 categoriesArray = await reponse.json();
 
-// on rajoute une catégorie au début du tableau pour TOUS sur le même modèle, avec une id de 0 et un name "tous"
+  //  ADD "ALL" CATEGORIE
 categoriesArray.unshift({ id: 0, name: "Tous" });
 
 let worksFiltersContainer = document.querySelector(".worksFilters_container");
 
-//FONCTION DE CREATION DES FILTRES
+//  CREATION OF FILTER BUTTONS
 function createFilterBtn(categories) { 
-  //on vide le html du container des filtres
+ 
   worksFiltersContainer.innerHTML = "";
-  //boucle pour créer un élément html <button> pour chaque élément de categoriesArray, enfant du container principal et ayant un text qui correspond
-  //au name de chaque catégorie
+  
   for (let i = 0; i < categories.length; i++) {
     let categorie = categories[i];
     let categoriesBtn = document.createElement("button");
@@ -90,11 +90,12 @@ function createFilterBtn(categories) {
   }
 } 
 
+  //  FILTER BTN CREATE WHEN THE PAGE IS INDEX.HTML
 if (window.location.pathname.endsWith("index.html")){
   createFilterBtn(categoriesArray);
 }
-/* createFilterBtn(categoriesArray); */
 
+//  FILTER WORKS BY CATEGORIES FUNCTION
 function filterWorksByCategories(categoryId) {
   if (categoryId === 0) {
     displayWorks(worksArray);
@@ -107,7 +108,7 @@ function filterWorksByCategories(categoryId) {
     }
 }
 
-// GESTION DU LOGOUT
+//  LOGOUT MANAGEMENT
 if (userToken && currentPage.includes("index_edition.html")){
   const logOut = document.querySelector(".logOut");
   logOut.addEventListener('click', function (event) {
@@ -121,7 +122,7 @@ if (userToken && currentPage.includes("index_edition.html")){
 ///////////////////     EDIT MODE     ///////////////////
  
 if (window.location.pathname.endsWith("edition.html")){
-  ///// VARIABLE ET FONCTION POUR OUVRIR LA MODALE 
+  //  GLOBAL VARIABLE FOR MODAL MANAGEMENT
   const launchModalButton = document.querySelector('.modify_button');
 
   const modaleWindows = document.querySelector('.modale_main-container');
@@ -135,10 +136,9 @@ if (window.location.pathname.endsWith("edition.html")){
   console.log(modaleAddWork);
 
 
-  ///// CODE DE GESTION DE LA MODALE
+  /////  MODAL MANAGEMENT  /////
 
-  /// AJOUT DU LISTENER SUR LE BOUTON POUR OUVRIR LA MODALE
-  
+  //  EVENT LISTENER FOR MODALE OPENING  
   launchModalButton.addEventListener('click', function(){
     modaleWindows.style.display ='flex';
     modaleWindows.style.opacity = '1';
@@ -149,12 +149,15 @@ if (window.location.pathname.endsWith("edition.html")){
   });
     
 
-  // DECLARATION MODALE GALLERY
+  //  MODAL GALLERY
   let modaleGallery = document.querySelector(".modale_gallery");
   console.log(modaleGallery);
 
+  //  DELETE WORK BTN
+  let deleteWorkBtn = document.querySelectorAll('.delete-work_btn');
+  console.log(deleteWorkBtn);
 
-  // FONCTION AFFICHANT LES PROJETS
+  //  DISPLAY WORKS MODAL FUNCTION
   function displayWorksModale (works) {
     modaleGallery.innerHTML = "";
 
@@ -171,16 +174,16 @@ if (window.location.pathname.endsWith("edition.html")){
       deleteWorkBtn.innerHTML = ('<i class="fa-regular fa-trash-can"></i>');
       worksFiles.appendChild(deleteWorkBtn);
       modaleGallery.appendChild(worksFiles);
-      // AJOUT D'EVENTS LISTENENR SUR LE CLICK DES BOUTONS DE SUPPRESSION DE PROJET
+
+      //  ADD EVENT LISTENER FOR PROJECTS DELETION ICON BUTTONS
       deleteWorkBtn.addEventListener('click', async ()=> {
-        // ON RECUPERE LE TOKEN
+        //  GET TOKEN FOR VERIFICATION
         const token = localStorage.getItem("token");
         console.log(token);
-        // ON DEFINIT LE WORK ID 
+        //  DEFINE WORK ID
         const workId = work.id;
 
-    //  GESTION DE LA REQUETE DE SUPPRESSION AU CLICK ET RECHARGEMENT DE LA GALLERY
-        // REQUETE DELETE
+        //  API REQUEST TO DELE WORKS
         try {
           const response = await fetch(`http://localhost:5678/api/works/${workId}`, {
             method: 'DELETE',
@@ -188,34 +191,29 @@ if (window.location.pathname.endsWith("edition.html")){
               Authorization: `Bearer ${token}`
             }
           });
-          if (response.ok) { //SI LA REPONSE EST OK
-            // ON SUPPRIME LE PROJET SELECTION workId
+          if (response.ok) {
+          
             worksArray = worksArray.filter(work => work.id !== workId);
             displayWorksModale(worksArray);
-          } else { // GESTION DE L'ERREUR
+
+          } else {
               console.error('Erreur lors de la suppression du projet');  
           }
         } catch (error){
           console.error(error);
         }
-
-        console.log("Essaie click bouton suppression réussit");
-        console.log(worksArray[i]);
       });
     }
   };
 
-  // DECLARATION DES BOUTONS DE SUPPRESSION DE PROJET DE LA MODALE
-  let deleteWorkBtn = document.querySelectorAll('.delete-work_btn');
-  console.log(deleteWorkBtn);
 
-  //FONCTION POUR FERMER LA MODALE
+  //  CLOSE MODAL FUNCTION
   function closeModale (){
     modaleWindows.style.display='none';
     
   }
 
-  // FONCTION DE FERMETURE DE LA MODALE EN CLIQUANT SUR LA CROIX
+  // CLOSE MODAL FUNCTION WITH DELETE BUTTON
   function closeModaleWithXmark (){
     xmark.forEach((xmark)=>{
       xmark.addEventListener("click", function() {
@@ -227,7 +225,7 @@ if (window.location.pathname.endsWith("edition.html")){
 
 
 
-  // CODE POUR FERMER LA MODALE EN CLIQUANT EN DEHORS DU CADRE DE CELLE-CI
+  //  CLOSE MODAL BY CLICKING OUTSIDE THE FRAME
   if (userToken && currentPage.includes("index_edition.html")) {
     modaleWindows.addEventListener('click', function (event) {
 
@@ -245,7 +243,8 @@ if (window.location.pathname.endsWith("edition.html")){
   };
 
 
-  //////////////////// MODALE AJOUT DE PROJET
+  /////  WORK ADDITION MODAL  /////
+
   const uploadWork = document.getElementById('uploadWork');
   console.log(uploadWork);
   const imgPreviewBox = document.querySelector('.imgPreviewBox');
@@ -253,8 +252,7 @@ if (window.location.pathname.endsWith("edition.html")){
   const imgPreview = document.querySelector('.imgPreview');
   console.log(imgPreview);
 
-  // CHANGER DE MODALE EN CLIQUANT SUR "AJOUTER PHOTO"
-
+  //  CHANGE MODAL WHEN THE "ADD PICTURE" BUTTON IS CLICKED
   const addPictureBtn = document.querySelector(".ajout-photo_box");
   console.log(addPictureBtn);
   addPictureBtn.addEventListener ('click', function(){
@@ -266,8 +264,8 @@ if (window.location.pathname.endsWith("edition.html")){
 
   const goBack = document.querySelector('.arrow-goback_container');
   console.log(goBack);
-  // REVENIR A LA PRECEDENTE MODALE EN CLIQUANT SUR LA FLECHE DE RETOUR
 
+  //  BACK ARROW
   goBack.addEventListener('click', function(){
     modaleAddWork.style.display = 'none';
     modaleAddWork.style.opacity = '0'; 
@@ -276,25 +274,25 @@ if (window.location.pathname.endsWith("edition.html")){
   })
 
 
-  /// RECUPERE DYNAMIQUEMENT LES CATEGORIE POUR CREER LES CATEGORIES DU CHAMP SELECT
-
-  // JE SELECTIONNE LE CONTENANT DES CATAGORIES A CHOISIR
+  //  CATEGORY SELECT FILTER
   const selectCategorieBox = document.getElementById('select-categorie');
   console.log(selectCategorieBox);
-  //
+  
+  //  CREATE CATEGORY FILTER SELECT FUNCTION
   function createCategoriesSelect (categories) {
     selectCategorieBox.innerHTML = "";
-    //CREATION DE LA PREMIERE OPTION PAR DEFAUT
+
+    //  ADD DEFAULT DISABLED OPTION FOR AN EMPTY FIELD
     let selectBtnDefault = document.createElement("option");
     selectCategorieBox.appendChild(selectBtnDefault);
-    // ON LUI RAJOUTE TOUT SES ATTRIBUT
+
     selectBtnDefault.value = "";
     selectBtnDefault.disabled = true;
     selectBtnDefault.selected = true;
-    // ON ENLEVE LA CATEGORIE "TOUS" DU CATEGORIEARRAY
+    //  DELETE "ALL" CATEGORY IN CATEGORIES ARRAY
     categoriesArray.shift();
     console.log(categoriesArray);
-    // CREATION DES AUTRE OPTIONS PAR RAPPORT AUX CATEGORIES DU BACK
+    //  CREATE OPTION ELEMENT WITH CATEGORY RETURNED BY THE API
     for (let i = 0; i < categories.length; i++) {
       let categorie = categories[i];
       let selectBtn = document.createElement("option");
@@ -303,15 +301,13 @@ if (window.location.pathname.endsWith("edition.html")){
       selectBtn.value = categorie.id;
       selectBtn.setAttribute('name', categorie.name);
     }
-    /* let selectBtnDefault = document.createElement("option");
-    selectBtnDefault.innerHTML = 'value="" disabled selected'; */
-  }
+  };
   createCategoriesSelect(categoriesArray);
 
   console.log(categoriesArray);
 
 
-  // POUR AFFICHER L'IMAGE DE PREVIEW APRES AVOIR CHOISIT LE FICHIER
+  //  DISPLAY THE PREVIEW IMAGE IN THE FILE INPUT FIELD
   uploadWork.addEventListener('change', (event)=> {
 
     const file = event.target.files[0];
@@ -326,8 +322,8 @@ if (window.location.pathname.endsWith("edition.html")){
     }
   });
 
-  /// VERIFICATION DE LA VALIDITE DES CHAMPS DU FORMULAIRE
 
+  //  FORM FIELD VALIDATION
   const addWorkForm = document.getElementById('addWorkForm');
   console.log(addWorkForm);
 
@@ -346,45 +342,49 @@ if (window.location.pathname.endsWith("edition.html")){
   console.log(addWorkForm);
   console.log(checkField);
 
+
+  // FIELD VALIDATION FUNCTION
+
   function areFieldsValid () {
     return (
       inputFile.checkValidity() &&
       titleField.checkValidity() &&
       checkField.checkValidity()
     );
-  }
+  };
 
-  /// TABLEAU AVEC LES CHAMPS A VERIFIER
+  //  ARRAY WITH FIELD TO VALIDATE
 
   [inputFile, titleField, checkField].forEach(field =>{
-    // AJOUTE UN ECOUTEUR A CHAQUE CHAMP
+    
     field.addEventListener('input',()=>{
-      //VERIFIE SI TOUS LES CHAMP SON VALIDE AVEC LA FONCTION AREFIELDSVALID
+      //  VERIFYING FIELDS WITH FUNCTION TO DISABLE OR NOT THE SUBMIT BUTTON
       if (areFieldsValid()){
-        submitWorkBtn.disabled = false; // si tous les champs sont valides active le bouton
+        submitWorkBtn.disabled = false;  //  IF ALL FIELD ARE VALID, ACTIVATE THE SUBMIT BUTTON
       }  else {
-        submitWorkBtn.disabled = true;
+        submitWorkBtn.disabled = true;  //  OR NOT
       }
     });
   });
 
 
-  // AJOUT DE L'EVENEMENT SUBMIT POUR ENVOYER LE NOUVEAU PROJET AU BACK
+  //  SUBMIT EVENT TO SEND NEW WORKS TO THE API
 
   addWorkForm.addEventListener ('submit', async function(event){
+
     event.preventDefault();
-    // on récupère le token
+    
     let userToken = localStorage.getItem('token');
 
-    // on construit l'objet formData avec les infos du formulaires pour 
-    //le body de la requète
+    //  CONSTRUCT FORMDATA FOR THE API REQUEST BODY 
     const formData = new FormData();
     formData.append('image', inputFile.files[0]);
     formData.append('title', titleField.value);
-
     formData.append('category', checkField.value);
-    console.log(formData);  
-    // requète pour envoyer les données à l'api
+    console.log(formData); 
+
+
+    // API REQUEST FOR ADD WORKS
     try {
       const response = await fetch('http://localhost:5678/api/works', {
         method : 'POST',
@@ -393,24 +393,23 @@ if (window.location.pathname.endsWith("edition.html")){
         },
         body: formData,
       });
+      // UPDATE WORKS ARRAY WITH ACTUAL WORKS IN BACKEND
       if (response.ok) {
 
         const reponseWorks = await fetch("http://localhost:5678/api/works");
         worksArray = await reponseWorks.json();
         console.log(worksArray);
 
-        // reset
+        //  RESET THE FORML
         addWorkForm.reset();
         document.getElementById('uploadWork').value = '';
         imgBoxcontent.style.display = "flex";  
         imgPreviewBox.style.display = "none";
-        imgPreview.src = ''; // Effacer l'aperçu
-        document.getElementById('select-categorie').selectedIndex = 0;
-        // on rajoute le nouveau projet au worksArray
-        // on ferme la modale
-        closeModale();
-        // on met à jour la galerie
-        displayWorks(worksArray);
+        imgPreview.src = ''; //  RESET PREVIEW
+        document.getElementById('select-categorie').selectedIndex = 0; // RESET THE CATEGORY SELECT FIELD      
+        
+        closeModale();  //  CLOSE MODALE        
+        displayWorks(worksArray);  //  UPDATE THE GALLERY WITH DISPLAY WORKS FUNCTION
       }
 
     } catch (error) {

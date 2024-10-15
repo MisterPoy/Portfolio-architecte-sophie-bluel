@@ -11,9 +11,9 @@ let postLoginUrl = 'http://localhost:5678/api/users/login';
 
 // REDIRECT THE USER IF THEY ALREADY HAS TOKEN
 let userToken = localStorage.getItem("token");
-console.log(userToken);
+
 let currentPage = window.location.pathname;
-console.log(`Page actuelle: ${currentPage}`);
+
 
 if ( (userToken && currentPage.includes("login.html")) ) {
     window.location.href = 'index_edition.html';
@@ -29,7 +29,7 @@ formLogin.addEventListener("submit", async function (event) {
     let password = balisePassword.value;
     
     let loginPayload = JSON.stringify({ email, password });  // CONVERT VALUES TO JSON FOR API REQUEST
-    console.log(loginPayload);
+   /*  console.log(loginPayload); */
 
     try {        
         const loginUser = await fetch(postLoginUrl, {
@@ -45,9 +45,9 @@ formLogin.addEventListener("submit", async function (event) {
         //  REDIRECT THE USER ON EDITION MODE PAGE
         if (loginUser.ok) {
             let userArray = await loginUser.json();
-            console.log(userArray);
+            /* console.log(userArray); */
             let userToken = userArray.token;
-            console.log(userToken);
+            /* console.log(userToken); */
             localStorage.setItem("token",userToken);
             window.location.href = 'index_edition.html';
         
@@ -71,5 +71,5 @@ formLogin.addEventListener("submit", async function (event) {
 
 /////     TOKEN STORED IN LOCAL STORAGE FOR USER
 let token = localStorage.getItem("token");
-console.log(localStorage.token);
+/* console.log(localStorage.token); */
 

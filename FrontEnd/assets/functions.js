@@ -55,7 +55,7 @@ function filterWorksByCategories(categoryId) {
       (work) => work.categoryId === categoryId
     );
     displayWorks(filteredWorks);
-    console.log(categoryId);
+    /* console.log(categoryId); */
     }
 };
 
@@ -81,7 +81,7 @@ function displayWorksModale (works) {
     deleteWorkBtn.addEventListener('click', async ()=> {
       // ON RECUPERE LE TOKEN
       const token = localStorage.getItem("token");
-      console.log(token);
+      /* console.log(token); */
       // ON DEFINIT LE WORK ID 
       const workId = work.id;
 
@@ -142,7 +142,7 @@ function createCategoriesSelect (categories) {
   selectBtnDefault.selected = true;
   //  DELETE "ALL" CATEGORY IN CATEGORIES ARRAY
   categoriesArray.shift();
-  console.log(categoriesArray);
+  /* console.log(categoriesArray); */
   //  CREATE OPTION ELEMENT WITH CATEGORY RETURNED BY THE API
   for (let i = 0; i < categories.length; i++) {
     let categorie = categories[i];

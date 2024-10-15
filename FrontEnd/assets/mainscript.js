@@ -2,14 +2,9 @@ export {};
 
 //////////////////     CHECKING TOKEN ON PAGE LOAD     ///////////////////
 const userToken = localStorage.getItem("token");
-/* console.log(userToken); */
 
   //  CURRENT PAGE
 const currentPage = window.location.pathname;
-/* console.log(`Page actuelle: ${currentPage}`); */
-if (currentPage.includes("login.html")) {
-  window.location.href = "index_edition.html";
-}
 
 
 if ( (userToken && currentPage.includes("login.html")) || (userToken && currentPage.includes("index.html")) ) {
@@ -26,7 +21,6 @@ let worksArray = [];
   //  API REQUEST AND WORK'S GALERY CONSTRUCT
 const reponseWorks = await fetch("http://localhost:5678/api/works");
 worksArray = await reponseWorks.json();
-console.log(worksArray);
  
 const gallery = document.querySelector(".gallery");
 
@@ -49,7 +43,6 @@ function displayWorks(works) {
   }
 }
 displayWorks(worksArray);
-
 
 ///////////////////     CREATION OF FILTERS BY CATEGORIES     ///////////////////
 
@@ -104,7 +97,7 @@ function filterWorksByCategories(categoryId) {
       (work) => work.categoryId === categoryId
     );
     displayWorks(filteredWorks);
-    console.log(categoryId);
+    /* console.log(categoryId); */
     }
 }
 
@@ -115,7 +108,7 @@ if (userToken && currentPage.includes("index_edition.html")){
     event.preventDefault();
     window.location.href = 'index.html';
     localStorage.removeItem('token');
-    console.log("hello");
+    /* console.log("hello"); */
   })
 };
 
@@ -130,11 +123,9 @@ if (window.location.pathname.endsWith("edition.html")){
   const modale = document.querySelector('.modale');
 
   const xmark = document.querySelectorAll('.fa-xmark');
-  console.log(xmark);
 
   const modaleAddWork = document.querySelector('.modaleAddWork');
-  console.log(modaleAddWork);
-
+  
 
   /////  MODAL MANAGEMENT  /////
 
@@ -151,11 +142,9 @@ if (window.location.pathname.endsWith("edition.html")){
 
   //  MODAL GALLERY
   let modaleGallery = document.querySelector(".modale_gallery");
-  console.log(modaleGallery);
 
   //  DELETE WORK BTN
   let deleteWorkBtn = document.querySelectorAll('.delete-work_btn');
-  console.log(deleteWorkBtn);
 
   //  DISPLAY WORKS MODAL FUNCTION
   function displayWorksModale (works) {
@@ -179,7 +168,6 @@ if (window.location.pathname.endsWith("edition.html")){
       deleteWorkBtn.addEventListener('click', async ()=> {
         //  GET TOKEN FOR VERIFICATION
         const token = localStorage.getItem("token");
-        console.log(token);
         //  DEFINE WORK ID
         const workId = work.id;
 
@@ -191,11 +179,9 @@ if (window.location.pathname.endsWith("edition.html")){
               Authorization: `Bearer ${token}`
             }
           });
-          if (response.ok) {
-          
+          if (response.ok) {          
             worksArray = worksArray.filter(work => work.id !== workId);
             displayWorksModale(worksArray);
-
           } else {
               console.error('Erreur lors de la suppression du projet');  
           }
@@ -234,8 +220,7 @@ if (window.location.pathname.endsWith("edition.html")){
         const isClickOnDeleteBtn = Array.from(deleteWorkBtn).some(btn => btn.contains(event.target));
 
         if (!modale.contains(event.target) && !isClickOnDeleteBtn && !modaleAddWork.contains(event.target)) {
-        closeModale();
-        console.log('hello everybody');
+        closeModale();        
         displayWorks(worksArray);
       }
         }
@@ -246,15 +231,12 @@ if (window.location.pathname.endsWith("edition.html")){
   /////  WORK ADDITION MODAL  /////
 
   const uploadWork = document.getElementById('uploadWork');
-  console.log(uploadWork);
   const imgPreviewBox = document.querySelector('.imgPreviewBox');
   const imgBoxcontent = document.querySelector('.imgBoxContent');
   const imgPreview = document.querySelector('.imgPreview');
-  console.log(imgPreview);
 
   //  CHANGE MODAL WHEN THE "ADD PICTURE" BUTTON IS CLICKED
   const addPictureBtn = document.querySelector(".ajout-photo_box");
-  console.log(addPictureBtn);
   addPictureBtn.addEventListener ('click', function(){
     modale.style.display = 'none';
     modale.style.opacity = '0'; 
@@ -263,7 +245,6 @@ if (window.location.pathname.endsWith("edition.html")){
   });
 
   const goBack = document.querySelector('.arrow-goback_container');
-  console.log(goBack);
 
   //  BACK ARROW
   goBack.addEventListener('click', function(){
@@ -276,7 +257,6 @@ if (window.location.pathname.endsWith("edition.html")){
 
   //  CATEGORY SELECT FILTER
   const selectCategorieBox = document.getElementById('select-categorie');
-  console.log(selectCategorieBox);
   
   //  CREATE CATEGORY FILTER SELECT FUNCTION
   function createCategoriesSelect (categories) {
@@ -291,7 +271,7 @@ if (window.location.pathname.endsWith("edition.html")){
     selectBtnDefault.selected = true;
     //  DELETE "ALL" CATEGORY IN CATEGORIES ARRAY
     categoriesArray.shift();
-    console.log(categoriesArray);
+    /* console.log(categoriesArray); */
     //  CREATE OPTION ELEMENT WITH CATEGORY RETURNED BY THE API
     for (let i = 0; i < categories.length; i++) {
       let categorie = categories[i];
@@ -304,9 +284,7 @@ if (window.location.pathname.endsWith("edition.html")){
   };
   createCategoriesSelect(categoriesArray);
 
-  console.log(categoriesArray);
-
-
+ 
   //  DISPLAY THE PREVIEW IMAGE IN THE FILE INPUT FIELD
   uploadWork.addEventListener('change', (event)=> {
 
@@ -325,22 +303,19 @@ if (window.location.pathname.endsWith("edition.html")){
 
   //  FORM FIELD VALIDATION
   const addWorkForm = document.getElementById('addWorkForm');
-  console.log(addWorkForm);
+  /* console.log(addWorkForm);
 
-  const inputFile = document.querySelector('input#uploadWork');
-  console.log(inputFile); 
+ */  const inputFile = document.querySelector('input#uploadWork');
+  /* console.log(inputFile); 
 
-  const titleField = document.querySelector('input#addWorkTitle');
-  console.log(titleField);
+  */ const titleField = document.querySelector('input#addWorkTitle');
+  /* console.log(titleField);
 
-  const checkField = document.getElementById('select-categorie');
-  console.log(checkField);
+  */ const checkField = document.getElementById('select-categorie');
+  /* console.log(checkField);
 
-  const submitWorkBtn = document.getElementById('submitWorkBtn');
-  console.log(submitWorkBtn);
-
-  console.log(addWorkForm);
-  console.log(checkField);
+  */ const submitWorkBtn = document.getElementById('submitWorkBtn');
+  /* console.log(submitWorkBtn); */
 
 
   // FIELD VALIDATION FUNCTION
@@ -354,9 +329,7 @@ if (window.location.pathname.endsWith("edition.html")){
   };
 
   //  ARRAY WITH FIELD TO VALIDATE
-
-  [inputFile, titleField, checkField].forEach(field =>{
-    
+  [inputFile, titleField, checkField].forEach(field =>{    
     field.addEventListener('input',()=>{
       //  VERIFYING FIELDS WITH FUNCTION TO DISABLE OR NOT THE SUBMIT BUTTON
       if (areFieldsValid()){
@@ -371,9 +344,7 @@ if (window.location.pathname.endsWith("edition.html")){
   //  SUBMIT EVENT TO SEND NEW WORKS TO THE API
 
   addWorkForm.addEventListener ('submit', async function(event){
-
     event.preventDefault();
-    
     let userToken = localStorage.getItem('token');
 
     //  CONSTRUCT FORMDATA FOR THE API REQUEST BODY 
@@ -382,7 +353,6 @@ if (window.location.pathname.endsWith("edition.html")){
     formData.append('title', titleField.value);
     formData.append('category', checkField.value);
     console.log(formData); 
-
 
     // API REQUEST FOR ADD WORKS
     try {
@@ -395,11 +365,9 @@ if (window.location.pathname.endsWith("edition.html")){
       });
       // UPDATE WORKS ARRAY WITH ACTUAL WORKS IN BACKEND
       if (response.ok) {
-
         const reponseWorks = await fetch("http://localhost:5678/api/works");
         worksArray = await reponseWorks.json();
-        console.log(worksArray);
-
+        /* console.log(worksArray); */
         //  RESET THE FORML
         addWorkForm.reset();
         document.getElementById('uploadWork').value = '';
@@ -411,7 +379,6 @@ if (window.location.pathname.endsWith("edition.html")){
         closeModale();  //  CLOSE MODALE        
         displayWorks(worksArray);  //  UPDATE THE GALLERY WITH DISPLAY WORKS FUNCTION
       }
-
     } catch (error) {
       console.error('Erreur lors de l\'envoi des données', error);
       alert('Une erreur est survenue lors de la soumission. Veuillez réessayer');

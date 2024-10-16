@@ -29,7 +29,6 @@ formLogin.addEventListener("submit", async function (event) {
     let password = balisePassword.value;
     
     let loginPayload = JSON.stringify({ email, password });  // CONVERT VALUES TO JSON FOR API REQUEST
-   /*  console.log(loginPayload); */
 
     try {        
         const loginUser = await fetch(postLoginUrl, {
@@ -45,9 +44,7 @@ formLogin.addEventListener("submit", async function (event) {
         //  REDIRECT THE USER ON EDITION MODE PAGE
         if (loginUser.ok) {
             let userArray = await loginUser.json();
-            /* console.log(userArray); */
             let userToken = userArray.token;
-            /* console.log(userToken); */
             localStorage.setItem("token",userToken);
             window.location.href = 'index_edition.html';
         

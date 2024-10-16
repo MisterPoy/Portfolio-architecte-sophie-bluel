@@ -90,14 +90,16 @@ if (window.location.pathname.endsWith("index.html")){
 
 //  FILTER WORKS BY CATEGORIES FUNCTION
 function filterWorksByCategories(categoryId) {
+
   if (categoryId === 0) {
     displayWorks(worksArray);
+
   } else {
     const filteredWorks = worksArray.filter(
       (work) => work.categoryId === categoryId
     );
+    
     displayWorks(filteredWorks);
-    /* console.log(categoryId); */
     }
 }
 
@@ -108,12 +110,11 @@ if (userToken && currentPage.includes("index_edition.html")){
     event.preventDefault();
     window.location.href = 'index.html';
     localStorage.removeItem('token');
-    /* console.log("hello"); */
   })
 };
 
 ///////////////////     EDIT MODE     ///////////////////
- 
+
 if (window.location.pathname.endsWith("edition.html")){
   //  GLOBAL VARIABLE FOR MODAL MANAGEMENT
   const launchModalButton = document.querySelector('.modify_button');
@@ -192,7 +193,6 @@ if (window.location.pathname.endsWith("edition.html")){
     }
   };
 
-
   //  CLOSE MODAL FUNCTION
   function closeModale (){
     modaleWindows.style.display='none';
@@ -207,9 +207,6 @@ if (window.location.pathname.endsWith("edition.html")){
       });
     }); 
   };
-
-
-
 
   //  CLOSE MODAL BY CLICKING OUTSIDE THE FRAME
   if (userToken && currentPage.includes("index_edition.html")) {
@@ -271,7 +268,6 @@ if (window.location.pathname.endsWith("edition.html")){
     selectBtnDefault.selected = true;
     //  DELETE "ALL" CATEGORY IN CATEGORIES ARRAY
     categoriesArray.shift();
-    /* console.log(categoriesArray); */
     //  CREATE OPTION ELEMENT WITH CATEGORY RETURNED BY THE API
     for (let i = 0; i < categories.length; i++) {
       let categorie = categories[i];
@@ -303,19 +299,14 @@ if (window.location.pathname.endsWith("edition.html")){
 
   //  FORM FIELD VALIDATION
   const addWorkForm = document.getElementById('addWorkForm');
-  /* console.log(addWorkForm);
 
- */  const inputFile = document.querySelector('input#uploadWork');
-  /* console.log(inputFile); 
+  const inputFile = document.querySelector('input#uploadWork');
 
-  */ const titleField = document.querySelector('input#addWorkTitle');
-  /* console.log(titleField);
+  const titleField = document.querySelector('input#addWorkTitle');
 
-  */ const checkField = document.getElementById('select-categorie');
-  /* console.log(checkField);
+  const checkField = document.getElementById('select-categorie');
 
-  */ const submitWorkBtn = document.getElementById('submitWorkBtn');
-  /* console.log(submitWorkBtn); */
+  const submitWorkBtn = document.getElementById('submitWorkBtn');
 
 
   // FIELD VALIDATION FUNCTION
@@ -352,7 +343,6 @@ if (window.location.pathname.endsWith("edition.html")){
     formData.append('image', inputFile.files[0]);
     formData.append('title', titleField.value);
     formData.append('category', checkField.value);
-    console.log(formData); 
 
     // API REQUEST FOR ADD WORKS
     try {
@@ -367,7 +357,6 @@ if (window.location.pathname.endsWith("edition.html")){
       if (response.ok) {
         const reponseWorks = await fetch("http://localhost:5678/api/works");
         worksArray = await reponseWorks.json();
-        /* console.log(worksArray); */
         //  RESET THE FORML
         addWorkForm.reset();
         document.getElementById('uploadWork').value = '';

@@ -12,7 +12,8 @@
 
     <script src="https://kit.fontawesome.com/4699e5a4d0.js" crossorigin="anonymous"></script>
 
-    <script type="module" src="./assets/mainscript.js" defer></script>
+    <script type="module" src="./assets/mainscript.js"></script>
+   
   </head>
   <body class="modale_open">
     <div class="modale_main-container modale_container-hide" id="modaleContainer">
@@ -70,7 +71,7 @@
           </figure>
         </div>
         <div class="ajout-photo_box">
-          <input type="submit" id="submit" value="Ajouter une photo" class="ajouter-photo">
+          <input type="submit" value="Ajouter une photo" class="ajouter-photo submit">
         </div>
       </aside>
 
@@ -81,23 +82,23 @@
         </div>
 
         <div class="arrow-goback_container">
-          <i class="fa-solid fa-arrow-left" id=""></i>
+          <i class="fa-solid fa-arrow-left"></i>
         </div>
 
-        <form action="#" method="#" id="addWorkForm" class="addWorkForm">
+        <form action="#" method="post" id="addWorkForm" class="addWorkForm">
           <h3>Ajout photo</h3>
 
           <label for="uploadWork" class="addWorkImgBox">
-            <div class="imgPreviewBox">
-              <img alt="Prévisualisation de l'image" class="imgPreview">
-            </div>
-            <div class="imgBoxContent">
+            <span class="imgPreviewBox">
+              <img alt="Prévisualisation de l'image" class="imgPreview" src="#">
+            </span>
+            <span class="imgBoxContent">
               <i class="fa-regular fa-image svgRepo"></i>
-              <div class="addImgButton">+ Ajouter photo</div>
-              <p>jpg, png : 4mo max</p>
+              <span class="addImgButton">+ Ajouter photo</span>
+              <span class="addImgInfo">jpg, png : 4mo max</span>
               <input type="file" class="addFile" id="uploadWork"
-              accept=".jpg, .jpeg, .png" value="" required>
-            </div>  
+              accept=".jpg, .jpeg, .png" required>
+            </span>  
           </label>
 
           <label for="addWorkTitle" class="workTitleBox">
@@ -107,14 +108,14 @@
 
           <label for="select-categorie" class="categoriesBox">
             <span>Catégorie</span> 
-            <div class="select-container">         
+            <span class="select-container">         
               <select name="select-categorie" id="select-categorie" required>
-                <option value="" disabled selected></option>                
+                <option value="" disabled selected>rien</option>                
                 <option value="Objets">Objets</option>
                 <option value="Appartements">Appartements</option>
                 <option value="Hotels & restaurants">Hotels & restaurants</option>            
             </select>
-            </div>
+            </span>
           </label>    
 
           <div class="validateAddWorks_box">

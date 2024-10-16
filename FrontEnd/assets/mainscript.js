@@ -17,7 +17,7 @@ if ( (userToken && currentPage.includes("login.html")) || (userToken && currentP
 let worksArray = [];
 
   //  API REQUEST AND WORK'S GALERY CONSTRUCT
-let worksResponse  = await fetch("http://localhost:5678/api/works");
+const worksResponse  = await fetch("http://localhost:5678/api/works");
 worksArray = await worksResponse.json();
  
 const gallery = document.querySelector(".gallery");
@@ -73,7 +73,7 @@ function createFilterBtn(categories) {
       for (let i = 0; i < allFiltersBtn.length; i++) {
         allFiltersBtn[i].classList.remove("filterBtnActived");
       }
-      
+
       categoriesBtn.classList.add("filterBtnActived");
       const categoryId = parseInt(categoriesBtn.dataset.id);
       filterWorksByCategories(categoryId);

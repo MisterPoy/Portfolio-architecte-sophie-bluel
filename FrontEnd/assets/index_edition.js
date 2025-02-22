@@ -119,7 +119,7 @@ function closeModaleWithXmark() {
 //  CLOSE MODAL BY CLICKING OUTSIDE THE FRAME
 const userToken = localStorage.getItem("token");
 //  CURRENT PAGE
-const currentPage = window.location.pathname;
+let currentPage = window.location.pathname;
 
 if (userToken && currentPage.includes("index_edition.html")) {
   modaleWindows.addEventListener("click", function (event) {
